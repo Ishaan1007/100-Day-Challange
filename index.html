@@ -1,111 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>100 Days Challenge</title>
 <style>
   :root{
-    --radius:14px;
+    --card-radius:14px;
     --gap:14px;
     --maxw:1100px;
-    --card-shadow: 0 12px 30px rgba(11,21,13,0.06);
-    --muted:#6b6b6b;
+    --muted:#6c6c6c;
   }
   *{box-sizing:border-box}
   body{
     margin:0;
     font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-    background: #f7fbf7;
+    background:#f3faf3;
     color:#07210f;
     -webkit-font-smoothing:antialiased;
     text-align:center;
-    padding-bottom:40px;
+    padding-bottom:48px;
   }
 
   header{
-    background: linear-gradient(90deg,#2e7d32 0,#1b5e20 100%);
+    background:linear-gradient(90deg,#2e7d32 0,#1b5e20 100%);
     color:white;
     padding:22px 12px;
-    box-shadow: 0 6px 30px rgba(0,0,0,0.12);
+    box-shadow:0 8px 30px rgba(0,0,0,0.12);
   }
   header h1{ margin:0; font-size:20px; letter-spacing:0.6px; }
-  header p{ margin:6px 0 0; opacity:0.9; font-size:13px }
+  header p{ margin:6px 0 0; opacity:.92; font-size:13px }
 
   main{ max-width:var(--maxw); margin:18px auto; padding:0 18px; }
 
-  /* MENU GRID */
+  /* MENU */
   .menu-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:var(--gap);
-    margin-top:20px;
+    margin-top:22px;
   }
 
   .card{
-    background: white;
-    border-radius:var(--radius);
+    border-radius:var(--card-radius);
     padding:18px;
-    min-height:140px;
+    min-height:150px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    box-shadow: var(--card-shadow);
+    box-shadow:0 12px 30px rgba(11,21,13,0.06);
     cursor:pointer;
-    transition: transform .16s ease, box-shadow .16s ease;
+    transition:transform .16s ease, box-shadow .16s ease;
     border:1px solid rgba(0,0,0,0.03);
     position:relative;
   }
-  .card:focus{ outline: 3px solid rgba(34,139,34,0.12) }
+  .card:focus{ outline: 3px solid rgba(34,139,34,0.10) }
+  .card:hover{ transform:translateY(-6px); box-shadow:0 22px 44px rgba(10,20,10,0.09); }
 
-  .card:hover{ transform: translateY(-6px); box-shadow: 0 20px 50px rgba(10,20,10,0.09); }
+  .card .title{ font-weight:800; font-size:16px; margin-bottom:6px; text-align:left; }
+  .card .sub{ font-size:13px; color:var(--muted); margin-bottom:12px; text-align:left; }
 
-  .card-top{ text-align:left; }
-  .card .title{ font-weight:800; font-size:16px; margin-bottom:6px; }
-  .card .sub{ font-size:13px; color:var(--muted); margin-bottom:12px; }
-
-  /* start button inside card */
   .start-btn{
     padding:10px 14px;
     border-radius:10px;
     border:none;
     font-weight:800;
     cursor:pointer;
-    box-shadow: 0 6px 18px rgba(10,20,10,0.06);
-    transition: transform .12s ease, opacity .12s ease;
+    box-shadow:0 6px 18px rgba(10,20,10,0.06);
+    transition:transform .12s ease;
     display:inline-flex;
     gap:8px;
     align-items:center;
+    font-size:14px;
   }
-  .start-btn:active{ transform: translateY(1px); }
+  .start-btn:active{ transform:translateY(1px); }
 
-  /* mini progress in card */
-  .mini-row{ display:flex; gap:10px; align-items:center; justify-content:space-between; width:100%; }
+  .mini-row{ display:flex; gap:12px; align-items:center; justify-content:space-between; width:100%; }
   .mini-bar{ flex:1; height:10px; background:rgba(0,0,0,0.06); border-radius:999px; overflow:hidden; margin-right:10px; }
-  .mini-fill{ height:100%; width:0%; background:green; transition: width .28s ease; }
+  .mini-fill{ height:100%; width:0%; background:green; transition:width .28s ease; }
 
-  /* Theme variants */
-  .card.reading{ background: linear-gradient(180deg,#fff9e6,#fff3d6); color:#6b4b00; border-color:#ffe8a8; }
-  .card.frontend{ background: linear-gradient(180deg,#fff7f2,#fff0ea); color:#5a1800; border-color:#ffd0b8; }
-  .card.clang{ background: linear-gradient(180deg,#f2fbff,#e6f6ff); color:#003f6b; border-color:#cfeaff; }
-  .card.math{ background: linear-gradient(180deg,#edf7ee,#e6f3e6); color:#155724; border-color:#bfe6c8; }
+  /* Theme card backgrounds */
+  .card.reading{ background:linear-gradient(180deg,#fff9e6,#fff3d6); color:#6b4b00; border-color:#ffe8a8;}
+  .card.frontend{ background:linear-gradient(180deg,#fff7f2,#fff0ea); color:#5a1800; border-color:#ffd0b8;}
+  .card.clang{ background:linear-gradient(180deg,#f2fbff,#e6f6ff); color:#003f6b; border-color:#cfeaff;}
+  .card.math{ background:linear-gradient(180deg,#edf7ee,#e6f3e6); color:#155724; border-color:#bfe6c8;}
 
-  /* start button theme styles */
-  .start-reading{ background: linear-gradient(90deg,#ffd966,#b38700); color:#fff; }
-  .start-frontend{ background: linear-gradient(90deg,#ffad7a,#b7410e); color:#fff; }
-  .start-clang{ background: linear-gradient(90deg,#75c0ff,#005fa3); color:#fff; }
-  .start-math{ background: linear-gradient(90deg,#66bb6a,#2e7d32); color:#fff; }
+  .start-reading{ background:linear-gradient(90deg,#ffd966,#b38700); color:#fff; }
+  .start-frontend{ background:linear-gradient(90deg,#ffad7a,#b7410e); color:#fff; }
+  .start-clang{ background:linear-gradient(90deg,#75c0ff,#005fa3); color:#fff; }
+  .start-math{ background:linear-gradient(90deg,#66bb6a,#2e7d32); color:#fff; }
 
   /* CHALLENGE VIEW */
   .challenge-wrap{ display:none; margin-top:8px; }
   .top-row{ display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; margin-bottom:14px; }
   .challenge-title{
-    font-weight:800;
+    font-weight:900;
     padding:12px 18px;
     border-radius:10px;
     color:#fff;
-    min-width:240px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    min-width:260px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    font-size:18px;
   }
   .controls{ display:flex; gap:10px; align-items:center; }
 
@@ -116,73 +111,74 @@
     cursor:pointer;
     font-weight:800;
     background:white;
-    box-shadow: 0 6px 18px rgba(10,20,10,0.06);
+    box-shadow:0 6px 18px rgba(10,20,10,0.06);
   }
   .btn.ghost{ background:transparent; color:inherit; border:1px solid rgba(0,0,0,0.06); }
   .btn.danger{ background:#e03b3b; color:white; }
 
-  .progress-wrap{ max-width:820px; margin:0 auto 18px; padding:10px; background:rgba(0,0,0,0.03); border-radius:999px; }
-  .progress-bar{ height:42px; border-radius:999px; overflow:hidden; background:white; box-shadow: inset 0 -2px 10px rgba(0,0,0,0.04); }
+  .progress-wrap{ max-width:880px; margin:0 auto 12px; padding:10px; background:rgba(0,0,0,0.03); border-radius:999px; }
+  .progress-bar{ height:46px; border-radius:999px; overflow:hidden; background:white; box-shadow:inset 0 -2px 10px rgba(0,0,0,0.04); }
   .progress-fill{
     height:100%;
     width:0%;
     display:flex; align-items:center; justify-content:center;
-    font-weight:900; color:white; transition:width .28s ease; padding:0 16px;
+    font-weight:900; color:white; transition:width .28s ease; padding:0 18px;
   }
-
   .progress-meta{ margin-top:8px; color:var(--muted); font-weight:700; }
 
-  /* days grid */
+  /* days grid (bigger tiles) */
   .days-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(76px,1fr));
-    gap:10px;
-    margin-top:14px;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:12px;
+    margin-top:18px;
   }
-  .day-btn{
+  .day-tile{
     border-radius:12px;
-    padding:12px 6px;
+    padding:20px 10px;
     border:2px solid #ddd;
     cursor:pointer;
-    font-weight:800;
-    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
-    box-shadow: 0 8px 20px rgba(10,20,10,0.04);
+    font-weight:900;
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+    box-shadow:0 10px 26px rgba(10,20,10,0.04);
     background:white;
     user-select:none;
+    font-size:16px;
+    position:relative;
+    min-height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
-  .day-btn:hover{ transform:translateY(-6px); box-shadow: 0 18px 34px rgba(10,20,10,0.06); }
-  .day-btn.completed{ color:white; }
+  .day-tile:hover{ transform:translateY(-6px); box-shadow:0 20px 40px rgba(10,20,10,0.07); }
+  .day-tile.completed{ color:white; }
+  .day-tile.locked{ background:#f0f0f0; color:#8a8a8a; border-color:#e0e0e0; cursor:not-allowed; transform:none; box-shadow:none; }
+  .lock-icon{ position:absolute; top:8px; right:8px; font-size:14px; opacity:0.95; }
 
-  @media (max-width:480px){
-    header h1{ font-size:18px; }
-    .card{ padding:14px; min-height:110px; }
-    .start-btn{ padding:8px 10px; font-size:13px; }
+  @media (max-width:520px){
+    .day-tile{ padding:16px 8px; min-height:68px; font-size:15px; }
   }
 </style>
 </head>
 <body>
 <header>
   <h1>100 Days Challenge</h1>
-  <p>Pick a 1-hour challenge and track 100 days — progress is saved per challenge.</p>
+  <p>Choose a challenge and complete each day in order. Progress is saved per challenge.</p>
 </header>
 
 <main>
-  <!-- MENU -->
+  <!-- Menu -->
   <section id="menu" class="menu-grid" aria-label="Challenge menu">
     <div class="card reading" data-theme="reading" tabindex="0" role="button">
-      <div class="card-top">
+      <div>
         <div class="title">📚 1 Hour Reading Challenge</div>
-        <div class="sub">Golden &amp; White theme — 100 days</div>
+        <div class="sub">Golden & White theme — 100 days</div>
       </div>
-
-      <div class="card-bottom" style="display:flex;align-items:center;gap:12px;">
-        <button class="start-btn start-reading" data-theme="reading" aria-label="Start Reading challenge">Start 100 Days</button>
-
-        <div style="width:100%;display:flex;flex-direction:column;align-items:flex-end;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="start-btn start-reading" data-theme="reading">Start 100 Days</button>
+        <div style="flex:1;">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-bar" aria-hidden="true">
-              <div class="mini-fill" data-mini="reading"></div>
-            </div>
+            <div class="mini-bar" aria-hidden="true"><div class="mini-fill" data-mini="reading"></div></div>
             <div style="font-weight:800;color:#6b4b00" data-mini-text="reading">0%</div>
           </div>
         </div>
@@ -190,19 +186,15 @@
     </div>
 
     <div class="card frontend" data-theme="frontend" tabindex="0" role="button">
-      <div class="card-top">
+      <div>
         <div class="title">💻 1 Hour Frontend Challenge</div>
-        <div class="sub">Rusty Orange &amp; White theme — 100 days</div>
+        <div class="sub">Rusty Orange & White theme — 100 days</div>
       </div>
-
-      <div class="card-bottom" style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
         <button class="start-btn start-frontend" data-theme="frontend">Start 100 Days</button>
-
-        <div style="width:100%;display:flex;flex-direction:column;align-items:flex-end;">
+        <div style="flex:1;">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-bar" aria-hidden="true">
-              <div class="mini-fill" data-mini="frontend"></div>
-            </div>
+            <div class="mini-bar" aria-hidden="true"><div class="mini-fill" data-mini="frontend"></div></div>
             <div style="font-weight:800;color:#5a1800" data-mini-text="frontend">0%</div>
           </div>
         </div>
@@ -210,19 +202,15 @@
     </div>
 
     <div class="card clang" data-theme="clang" tabindex="0" role="button">
-      <div class="card-top">
+      <div>
         <div class="title">🔵 1 Hour C Language</div>
-        <div class="sub">Blue &amp; White theme — 100 days</div>
+        <div class="sub">Blue & White theme — 100 days</div>
       </div>
-
-      <div class="card-bottom" style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
         <button class="start-btn start-clang" data-theme="clang">Start 100 Days</button>
-
-        <div style="width:100%;display:flex;flex-direction:column;align-items:flex-end;">
+        <div style="flex:1;">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-bar" aria-hidden="true">
-              <div class="mini-fill" data-mini="clang"></div>
-            </div>
+            <div class="mini-bar" aria-hidden="true"><div class="mini-fill" data-mini="clang"></div></div>
             <div style="font-weight:800;color:#003f6b" data-mini-text="clang">0%</div>
           </div>
         </div>
@@ -230,19 +218,15 @@
     </div>
 
     <div class="card math" data-theme="math" tabindex="0" role="button">
-      <div class="card-top">
+      <div>
         <div class="title">🧮 1 Hour Math Challenge</div>
-        <div class="sub">Green &amp; White theme — 100 days</div>
+        <div class="sub">Green & White theme — 100 days</div>
       </div>
-
-      <div class="card-bottom" style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
         <button class="start-btn start-math" data-theme="math">Start 100 Days</button>
-
-        <div style="width:100%;display:flex;flex-direction:column;align-items:flex-end;">
+        <div style="flex:1;">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div class="mini-bar" aria-hidden="true">
-              <div class="mini-fill" data-mini="math"></div>
-            </div>
+            <div class="mini-bar" aria-hidden="true"><div class="mini-fill" data-mini="math"></div></div>
             <div style="font-weight:800;color:#155724" data-mini-text="math">0%</div>
           </div>
         </div>
@@ -256,15 +240,16 @@
       <div id="challengeTitle" class="challenge-title">—</div>
       <div class="controls">
         <button id="backBtn" class="btn ghost" onclick="backToMenu()">← Menu</button>
+        <button id="undoBtn" class="btn" onclick="undoLast()">↺ Undo Last</button>
         <button id="resetBtn" class="btn danger" onclick="resetChallenge()">Reset</button>
       </div>
     </div>
 
-    <div class="progress-wrap">
+    <div class="progress-wrap" aria-hidden="false">
       <div class="progress-bar" role="progressbar" aria-label="Progress">
         <div id="progressFill" class="progress-fill">0%</div>
       </div>
-      <div id="progressMeta" class="progress-meta">0 of 100 days completed</div>
+      <div id="progressMeta" class="progress-meta">0 of 100 days completed • Complete in order</div>
     </div>
 
     <div id="daysGrid" class="days-grid" aria-live="polite"></div>
@@ -272,36 +257,34 @@
 </main>
 
 <script>
-/* Theme definitions and storage keys */
 const THEMES = {
-  reading: { key: "days_reading", label: "1 Hour Reading Challenge", primary: "#b8860b", border: "#ffd700", heading: "linear-gradient(90deg,#ffd966,#b38700)", accentText: "#6b4b00" },
-  frontend: { key: "days_frontend", label: "1 Hour Frontend Challenge", primary: "#b7410e", border: "#d98a6b", heading: "linear-gradient(90deg,#ffad7a,#b7410e)", accentText: "#5a1800" },
-  clang: { key: "days_clang", label: "1 Hour C Language", primary: "#0077cc", border: "#75c0ff", heading: "linear-gradient(90deg,#75c0ff,#005fa3)", accentText: "#003f6b" },
-  math: { key: "days_math", label: "1 Hour Math Challenge", primary: "#2e7d32", border: "#66bb6a", heading: "linear-gradient(90deg,#66bb6a,#2e7d32)", accentText: "#155724" }
+  reading: { key: "days_reading", label: "1 Hour Reading Challenge", primary: "#b8860b", border: "#ffd700", heading: "linear-gradient(90deg,#ffd966,#b38700)", text: "#6b4b00" },
+  frontend: { key: "days_frontend", label: "1 Hour Frontend Challenge", primary: "#b7410e", border: "#d98a6b", heading: "linear-gradient(90deg,#ffad7a,#b7410e)", text: "#5a1800" },
+  clang: { key: "days_clang", label: "1 Hour C Language", primary: "#0077cc", border: "#75c0ff", heading: "linear-gradient(90deg,#75c0ff,#005fa3)", text: "#003f6b" },
+  math: { key: "days_math", label: "1 Hour Math Challenge", primary: "#2e7d32", border: "#66bb6a", heading: "linear-gradient(90deg,#66bb6a,#2e7d32)", text: "#155724" }
 };
 
 let current = null;
 
-/* Load saved array (robust) */
-function loadDays(storageKey){
+/* Load progress (single integer 0..100) */
+function loadProgress(key){
   try{
-    const raw = localStorage.getItem(storageKey);
-    if (!raw) return [];
-    const arr = JSON.parse(raw);
-    if (!Array.isArray(arr)) return [];
-    return arr.map(n=>Number(n)).filter(n=>Number.isInteger(n)&&n>=1&&n<=100);
-  }catch(e){ return []; }
+    const raw = localStorage.getItem(key);
+    let n = raw !== null ? Number(raw) : 0;
+    if (!Number.isInteger(n) || n < 0) n = 0;
+    if (n > 100) n = 100;
+    return n;
+  }catch(e){ return 0; }
 }
 
-/* Save deduped sorted */
-function saveDays(storageKey, arr){
-  const unique = Array.from(new Set(arr.map(Number))).filter(n=>Number.isInteger(n)&&n>=1&&n<=100);
-  unique.sort((a,b)=>a-b);
-  localStorage.setItem(storageKey, JSON.stringify(unique));
-  updateMenuProgress(); // reflect in mini-cards immediately
+/* Save progress */
+function saveProgress(key, value){
+  const v = Math.max(0, Math.min(100, Math.trunc(Number(value) || 0)));
+  localStorage.setItem(key, String(v));
+  updateMenuProgress();
 }
 
-/* Show menu */
+/* show menu */
 function showMenu(){
   document.getElementById("menu").style.display = "grid";
   document.getElementById("challenge").style.display = "none";
@@ -310,140 +293,151 @@ function showMenu(){
   document.title = "100 Days Challenge — Menu";
 }
 
-/* Start a challenge (from card or start button) */
+/* start challenge */
 function startChallenge(themeKey){
   if (!THEMES[themeKey]) return;
   current = themeKey;
   const theme = THEMES[themeKey];
 
-  // Show challenge view
   document.getElementById("menu").style.display = "none";
   document.getElementById("challenge").style.display = "block";
   document.getElementById("challenge").setAttribute("aria-hidden","false");
 
-  // Heading style
   const heading = document.getElementById("challengeTitle");
   heading.textContent = theme.label;
   heading.style.background = theme.heading;
   heading.style.color = "#fff";
 
-  // Render days & progress
   renderDays(themeKey);
-  updateProgress(themeKey);
-
+  updateProgressUI(themeKey);
   document.title = theme.label + " — 100 Days";
 }
 
-/* Back */
+/* back */
 function backToMenu(){ showMenu(); }
 
-/* Render 100 day buttons */
+/* render 100 tiles enforcing order-lock */
 function renderDays(themeKey){
   const grid = document.getElementById("daysGrid");
   grid.innerHTML = "";
   const theme = THEMES[themeKey];
-  const completed = loadDays(theme.key);
+  const progress = loadProgress(theme.key); // highest completed day (0..100)
 
   for (let i=1;i<=100;i++){
-    const btn = document.createElement("button");
-    btn.className = "day-btn";
-    btn.textContent = "Day " + i;
-    btn.dataset.day = i;
-    // set uncompleted style
-    btn.style.borderColor = theme.border;
-    btn.style.color = theme.border;
-    btn.style.background = "white";
+    const t = document.createElement("button");
+    t.className = "day-tile";
+    t.textContent = "Day " + i;
+    t.dataset.day = String(i);
 
-    if (completed.includes(i)){
-      btn.classList.add("completed");
-      btn.style.background = theme.primary;
-      btn.style.borderColor = theme.primary;
-      btn.style.color = "#fff";
-      btn.setAttribute("aria-pressed","true");
+    // styles
+    t.style.borderColor = theme.border;
+    t.style.color = theme.border;
+
+    if (i <= progress){
+      // completed
+      t.classList.add("completed");
+      t.style.background = theme.primary;
+      t.style.borderColor = theme.primary;
+      t.style.color = "#fff";
+      t.setAttribute("aria-pressed","true");
+      // allow undo ONLY if it's the last completed (i == progress)
+      if (i === progress){
+        t.title = "Click to undo this last completed day";
+        t.addEventListener("click", ()=> { undoLast(); });
+      } else {
+        // earlier completed: no click
+        t.addEventListener("click", ()=> { /* locked for modification to keep order */ });
+      }
+    } else if (i === progress + 1){
+      // next unlocked day
+      t.classList.remove("locked");
+      t.title = "Click to mark Day " + i + " complete";
+      t.addEventListener("click", ()=> {
+        // advance progress
+        saveProgress(theme.key, progress + 1);
+        renderDays(themeKey);
+        updateProgressUI(themeKey);
+      });
+      // style as available (white background, border primary)
+      t.style.background = "white";
+      t.style.color = theme.primary;
+      t.style.borderColor = theme.primary;
     } else {
-      btn.setAttribute("aria-pressed","false");
+      // locked
+      t.classList.add("locked");
+      t.title = "Locked — complete previous days in order";
+      // add lock icon (emoji) at corner
+      const lock = document.createElement("span");
+      lock.className = "lock-icon";
+      lock.textContent = "🔒";
+      t.appendChild(lock);
+      // no click
     }
 
-    btn.addEventListener("click", ()=> toggleDay(themeKey, i, btn));
-    grid.appendChild(btn);
+    grid.appendChild(t);
   }
 }
 
-/* Toggle a day on/off */
-function toggleDay(themeKey, day, btnElem){
+/* update main progress UI */
+function updateProgressUI(themeKey){
   const theme = THEMES[themeKey];
-  const key = theme.key;
-  const arr = loadDays(key);
-  const idx = arr.indexOf(day);
-  if (idx >= 0){
-    arr.splice(idx,1);
-    btnElem.classList.remove("completed");
-    btnElem.style.background = "white";
-    btnElem.style.borderColor = theme.border;
-    btnElem.style.color = theme.border;
-    btnElem.setAttribute("aria-pressed","false");
-  } else {
-    arr.push(day);
-    btnElem.classList.add("completed");
-    btnElem.style.background = theme.primary;
-    btnElem.style.borderColor = theme.primary;
-    btnElem.style.color = "#fff";
-    btnElem.setAttribute("aria-pressed","true");
-  }
-  saveDays(key, arr);
-  updateProgress(themeKey);
-}
-
-/* Update main progress bar for active challenge */
-function updateProgress(themeKey){
+  const p = loadProgress(theme.key);
+  const pct = Math.round((p/100) * 100);
   const fill = document.getElementById("progressFill");
-  const meta = document.getElementById("progressMeta");
-  if (!themeKey) { fill.style.width = "0%"; fill.textContent = "0%"; meta.textContent = ""; return; }
-  const theme = THEMES[themeKey];
-  const arr = loadDays(theme.key);
-  const percent = Math.round((arr.length/100)*100);
-  fill.style.width = percent + "%";
-  fill.textContent = percent + "%";
+  fill.style.width = pct + "%";
+  fill.textContent = pct + "%";
   fill.style.background = theme.primary;
-  meta.textContent = `${arr.length} of 100 days completed`;
+  document.getElementById("progressMeta").textContent = `${p} of 100 days completed • Complete in order`;
+  // update undo button availability
+  document.getElementById("undoBtn").disabled = (p === 0);
 }
 
-/* Reset current challenge */
+/* undo last completed day (decrement progress by 1) */
+function undoLast(){
+  if (!current) return;
+  const theme = THEMES[current];
+  let p = loadProgress(theme.key);
+  if (p <= 0) return;
+  if (!confirm("Undo last completed day? This will mark Day " + p + " as not completed.")) return;
+  p = p - 1;
+  saveProgress(theme.key, p);
+  renderDays(current);
+  updateProgressUI(current);
+}
+
+/* reset current challenge */
 function resetChallenge(){
   if (!current) return;
   const theme = THEMES[current];
-  if (!confirm(`Reset saved progress for "${theme.label}"? This will delete saved data.`)) return;
-  localStorage.removeItem(theme.key);
+  if (!confirm(`Reset all progress for "${theme.label}"? This will permanently delete saved progress for this challenge.`)) return;
+  saveProgress(theme.key, 0);
   renderDays(current);
-  updateProgress(current);
+  updateProgressUI(current);
 }
 
-/* Update mini progress bars on menu cards */
+/* update mini progress for menu cards */
 function updateMenuProgress(){
-  for (const k of Object.keys(THEMES)){
+  Object.keys(THEMES).forEach(k=>{
     const theme = THEMES[k];
-    const arr = loadDays(theme.key);
-    const percent = Math.round((arr.length/100)*100);
+    const p = loadProgress(theme.key);
+    const pct = Math.round((p/100)*100);
     const miniFill = document.querySelector(`.mini-fill[data-mini="${k}"]`);
     const miniText = document.querySelector(`[data-mini-text="${k}"]`);
-    if (miniFill) {
-      miniFill.style.width = percent + "%";
-      miniFill.style.background = theme.primary;
-    }
-    if (miniText) miniText.textContent = percent + "%";
-  }
+    if (miniFill) { miniFill.style.width = pct + "%"; miniFill.style.background = theme.primary; }
+    if (miniText) miniText.textContent = pct + "%";
+  });
 }
 
-/* Wire up start buttons & card clicks & keyboard */
+/* Wire up card/button clicks on DOM load */
 document.addEventListener("DOMContentLoaded", ()=>{
-  // card click / keyboard
+  // card click
   document.querySelectorAll('.card').forEach(card=>{
     const theme = card.dataset.theme;
     card.addEventListener('click', ()=> startChallenge(theme));
     card.addEventListener('keydown', (e)=> { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startChallenge(theme); } });
   });
 
-  // start buttons inside cards should stopPropagation so card click doesn't double-run
+  // start buttons inside card
   document.querySelectorAll('.start-btn').forEach(btn=>{
     btn.addEventListener('click', (e)=>{
       e.stopPropagation();
@@ -452,12 +446,16 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
   });
 
-  // initial mini progress update
   updateMenuProgress();
+  // expose undo/back for console if needed
+  window.undoLast = undoLast;
+  window.backToMenu = backToMenu;
+  window.resetChallenge = resetChallenge;
 });
 
-/* accessibility: expose showMenu to console if needed */
-window.backToMenu = backToMenu;
+/* small helper to go back (used externally if needed) */
+function backToMenu(){ showMenu(); updateMenuProgress(); }
 </script>
 </body>
-                </html>
+</html>
+    
